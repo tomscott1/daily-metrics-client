@@ -13,10 +13,10 @@ class Header extends Component {
       // show a link to sign in or sign up
       return [
         <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signin">Sign In</Link>
+          <Link className="nav-link" to="/signin">Login</Link>
         </li>,
         <li className="nav-item" key={2}>
-          <Link className="nav-link" to="/signup">Sign Up</Link>
+          <Link className="nav-link" to="/signup">Register</Link>
         </li>
       ];
     }
@@ -24,13 +24,19 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <Link to="/" className="navbar-brand">Redux Auth</Link>
-        <ul className="nav navbar-nav">
-          {this.renderLinks()}
-        </ul>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link to="/" className="navbar-brand">Daily Metrics</Link>
+          </div>
+          <div className="collapse navbar-collapse">
+            <ul className="nav navbar-nav navbar-right">
+              {this.renderLinks()}
+            </ul>
+          </div>
+        </div>
       </nav>
-    );
+    )
   }
 }
 
