@@ -19,10 +19,19 @@ class Signup extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { email, password, passwordConfirm }} = this.props;
+    const { handleSubmit, fields: { first_name, last_name, email, password, passwordConfirm }} = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <fieldset className="form-group">
+          <label>First Name:</label>
+          <input className="form-control" {...first_name} />
+        </fieldset>
+        <fieldset className="form-group">
+          <label>Last Name:</label>
+          <input className="form-control" {...last_name} />
+        </fieldset>
+
         <fieldset className="form-group">
           <label>Email:</label>
           <input className="form-control" {...email} />
@@ -39,7 +48,7 @@ class Signup extends Component {
           {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
         </fieldset>
         {this.renderAlert()}
-        <button action="submit" className="btn btn-primary">Sign up!</button>
+        <button action="submit" className="btn btn-default">Register</button>
       </form>
     );
   }
@@ -73,6 +82,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'passwordConfirm'],
+  fields: ['first_name', 'last_name', 'email', 'password', 'passwordConfirm'],
   validate
 }, mapStateToProps, actions)(Signup);

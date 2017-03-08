@@ -4,7 +4,10 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  FETCH_MESSAGE
+  FETCH_MESSAGE,
+  FETCH_USER,
+  ADD_SIGNIN_EMAIL,
+  QUERY_ERROR
 } from './types';
 
 const ROOT_URL = 'https://daily-metrics.herokuapp.com';
@@ -17,8 +20,11 @@ export function signinUser({ email, password }) {
         // If request is good...
         // - Update state to indicate user is authenticated
         dispatch({ type: AUTH_USER });
+        // update state to provide email
+        dispatch({ type: ADD_SIGNIN_EMAIL, payload: email })
         // - Save the JWT token
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('email', email)
         // - redirect to the route '/feature'
         browserHistory.push('/feature');
       })
@@ -30,11 +36,12 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ email, password }) {
+export function signupUser({ first_name, last_name, email, password }) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { first_name, last_name, email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
+        dispatch({ type: ADD_SIGNIN_EMAIL, payload: email })
         localStorage.setItem('token', response.data.token);
         browserHistory.push('/feature');
       })
@@ -47,6 +54,14 @@ export function authError(error) {
     type: AUTH_ERROR,
     payload: error
   };
+}
+
+export function queryError(error) {
+  console.log('query error function', error)
+  return {
+    type: QUERY_ERROR,
+    payload: error
+  }
 }
 
 export function signoutUser() {
@@ -66,5 +81,20 @@ export function fetchMessage() {
           payload: response.data.message
         });
       });
+  }
+}
+
+export function getUserInfo({ email }) {
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/getuser`, { email })
+    .then(response => {
+      dispatch({
+        type: FETCH_USER,
+        payload: response.data
+      })
+    })
+    .catch((err) => {
+      dispatch(queryError(err))
+    })
   }
 }
