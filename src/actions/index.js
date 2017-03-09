@@ -7,6 +7,7 @@ import {
   FETCH_MESSAGE,
   FETCH_USER,
   ADD_SIGNIN_EMAIL,
+  GET_METRICS,
   QUERY_ERROR
 } from './types';
 
@@ -90,6 +91,21 @@ export function getUserInfo({ email }) {
     .then(response => {
       dispatch({
         type: FETCH_USER,
+        payload: response.data
+      })
+    })
+    .catch((err) => {
+      dispatch(queryError(err))
+    })
+  }
+}
+
+export function getMetrics({ user }) {
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/getmetrics`, { user })
+    .then(response => {
+      dispatch({
+        type: GET_METRICS,
         payload: response.data
       })
     })

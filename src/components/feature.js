@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import MetricList from './metric-list'
+import * as actions from '../actions'
 import _ from 'lodash'
 
 class Feature extends Component {
   componentWillMount() {
     this.props.getUserInfo(this.props)
     console.log('props', this.props)
+  }
+
+  getMetricList() {
+    console.log('metrics props', this.props)
+    this.props.getMetrics(this.props.user)
   }
 
   renderUserName(){
@@ -19,7 +25,11 @@ class Feature extends Component {
 
   render() {
     return (
-      <div>Welcome{this.renderUserName()}</div>
+      <div className="container-fluid">
+        Welcome{this.renderUserName()}
+        <button className="btn btn-default" onClick={this.getMetricList.bind(this)}>Load Metrics</button>
+        <MetricList />
+      </div>
     )
   }
 }
