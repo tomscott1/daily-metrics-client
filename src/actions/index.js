@@ -7,6 +7,7 @@ import {
   FETCH_MESSAGE,
   FETCH_USER,
   ADD_SIGNIN_EMAIL,
+  GET_METRICS,
   QUERY_ERROR
 } from './types';
 
@@ -90,6 +91,35 @@ export function getUserInfo({ email }) {
     .then(response => {
       dispatch({
         type: FETCH_USER,
+        payload: response.data
+      })
+    })
+    .catch((err) => {
+      dispatch(queryError(err))
+    })
+  }
+}
+
+function _getUserFromEmail(user) {
+  let passObj = { email: user.user }
+  console.log("passing to axios", passObj)
+  return axios.post(`${ROOT_URL}/getuser`, passObj)
+    .then(response => {
+      return { user: response._id }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+export function getMetrics({user}) {
+  // console.log('passing to helper', user)
+  // let userCheck = user._id ? { user: user._id } : _getUserFromEmail(user)
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/getmetrics`, { user })
+    .then(response => {
+      dispatch({
+        type: GET_METRICS,
         payload: response.data
       })
     })

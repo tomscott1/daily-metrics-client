@@ -4,4 +4,5 @@ export const AUTH_ERROR = 'auth_error';
 export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_USER = 'fetch_user';
 export const ADD_SIGNIN_EMAIL = 'add_signin_email'
+export const GET_METRICS = 'get_metrics'
 export const QUERY_ERROR = 'query_error'

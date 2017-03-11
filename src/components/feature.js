@@ -1,12 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import MetricList from './metric-list'
+import * as actions from '../actions'
 import _ from 'lodash'
 
 class Feature extends Component {
   componentWillMount() {
     this.props.getUserInfo(this.props)
-    console.log('props', this.props)
+    if(this.props.user) localStorage.setItem('_id', this.props.user._id)
+  }
+
+  getMetricList() {
+    if(this.props.user) {
+      let user = { user: this.props.user._id }
+      this.props.getMetrics(user)
+    }
   }
 
   renderUserName(){
@@ -18,8 +27,17 @@ class Feature extends Component {
   }
 
   render() {
+    this.getMetricList()
     return (
-      <div>Welcome{this.renderUserName()}</div>
+      <div className="container-fluid">
+        <div>
+          Welcome{this.renderUserName()}
+        </div>
+
+        <div>
+          <Link to="/metrics" className="btn btn-default">View Metrics</Link>
+        </div>
+      </div>
     )
   }
 }
