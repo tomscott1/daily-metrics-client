@@ -11,6 +11,7 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import Metrics from './components/metric-list'
+import AddMetric from './components/add-metric'
 import Feature from './components/feature';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
@@ -45,6 +46,7 @@ ReactDOM.render(
         <Route path="signup" component={Signup} />
         <Route path="feature" component={RequireAuth(Feature)} />
         <Route path="metrics" component={RequireAuth(Metrics)} />
+        <Route path="addmetric" component={RequireAuth(AddMetric)} />
       </Route>
     </Router>
   </Provider>
