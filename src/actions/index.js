@@ -100,7 +100,21 @@ export function getUserInfo({ email }) {
   }
 }
 
-export function getMetrics({ user }) {
+function _getUserFromEmail(user) {
+  let passObj = { email: user.user }
+  console.log("passing to axios", passObj)
+  return axios.post(`${ROOT_URL}/getuser`, passObj)
+    .then(response => {
+      return { user: response._id }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+export function getMetrics({user}) {
+  // console.log('passing to helper', user)
+  // let userCheck = user._id ? { user: user._id } : _getUserFromEmail(user)
   return function(dispatch) {
     axios.post(`${ROOT_URL}/getmetrics`, { user })
     .then(response => {

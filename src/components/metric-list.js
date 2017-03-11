@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 
 class MetricList extends Component {
+
+
+
+
   render () {
+    console.log('metrics', this.props)
     return (
       <div className="container-fluid">
         <h2>Metrics</h2>
@@ -13,13 +18,11 @@ class MetricList extends Component {
 
 
 }
-// function mapStateToProps(state) {
-//   let stateEmail = state.auth.signedInEmail ? state.auth.signedInEmail : localStorage.getItem('email')
-//   return {
-//     email: stateEmail,
-//     user: state.auth.user
-//   }
-// }
+function mapStateToProps(state) {
+  return {
+    metrics: state.metrics
+  }
+}
 
 // export default connect(mapStateToProps, actions)(Feature)
-export default connect()(MetricList)
+export default connect(mapStateToProps)(MetricList)
