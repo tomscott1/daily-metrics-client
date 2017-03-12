@@ -43,7 +43,6 @@ class Feature extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state)
   let stateEmail = state.auth.signedInEmail ? state.auth.signedInEmail : localStorage.getItem('email')
   return {
     email: stateEmail,
