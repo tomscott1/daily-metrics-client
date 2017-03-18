@@ -6,16 +6,17 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { persistStore, autoRehydrate } from 'redux-persist'
 import reduxThunk from 'redux-thunk';
 
-import App from './components/app';
-import Signin from './components/auth/signin';
-import Signout from './components/auth/signout';
-import Signup from './components/auth/signup';
+import App from './components/app'
+import Home from './components/home'
+import Signin from './components/auth/signin'
+import Signout from './components/auth/signout'
+import Signup from './components/auth/signup'
 import Metrics from './components/metric-list'
 import AddMetric from './components/add-metric'
-import Feature from './components/feature';
-import RequireAuth from './components/auth/require_auth';
-import reducers from './reducers';
-import { AUTH_USER } from './actions/types';
+import Feature from './components/feature'
+import RequireAuth from './components/auth/require_auth'
+import reducers from './reducers'
+import { AUTH_USER } from './actions/types'
 
 const store = createStore(
   reducers,
@@ -41,6 +42,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
+        <IndexRoute component={Home} />
         <Route path="signin" component={Signin} />
         <Route path="signout" component={Signout} />
         <Route path="signup" component={Signup} />

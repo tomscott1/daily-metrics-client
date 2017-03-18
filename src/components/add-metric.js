@@ -59,12 +59,6 @@ function validate(formProps) {
 }
 
 
-
-
-// function mapStateToProps(state) {
-//   return { errorMessage: state.addmetric.error };
-// }
-
 export default reduxForm({
   form: 'addmetric',
   fields: ['metric_type', 'title']
