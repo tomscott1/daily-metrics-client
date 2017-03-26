@@ -5,12 +5,16 @@ import { Link } from 'react-router';
 class Header extends Component {
 
   renderLinks() {
+    console.log('signed in as...', this.props)
     if (this.props.authenticated) {
       // show a link to sign out
-      return (
-        <li className="nav-item">
+      return ([
+        <li className="nav-label" key={1}>
+          <p className="navbar-text">Signed in as <Link className="nav-link" to="/">{this.props.email}</Link></p>
+        </li>,
+        <li className="nav-item" key={2}>
           <Link className="nav-link" to="/signout">Sign Out</Link>
-        </li>
+        </li>]
       )
     } else {
       // show a link to sign in or sign up
@@ -44,7 +48,9 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
+  let stateEmail = state.auth.signedInEmail ? state.auth.signedInEmail : localStorage.getItem('email')
   return {
+    email: stateEmail,
     authenticated: state.auth.authenticated,
     user: state.auth.user
   };
